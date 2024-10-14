@@ -1,0 +1,59 @@
+.BodyUser {
+    width: 100%;
+    background-image: url('../Icons/Impressora.jpg');
+    border-radius: 20px;
+    padding: 20px 20px 20px 30px;
+    position: relative;
+    overflow: hidden; /* Necessário para que o pseudo-elemento não ultrapasse os limites da div */
+}
+
+.BodyUser::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px; /* Match the border-radius of the parent */
+    background: linear-gradient(106.97deg, rgba(6, 11, 38, 0.89) 38.26%, rgba(26, 31, 55, 0.5) 91%);
+    pointer-events: none; /* Para garantir que o pseudo-elemento não interfira nas interações do usuário */
+    z-index: 1; /* Define o z-index menor para o pseudo-elemento */
+}
+
+.UserText {
+    width: 54%;
+    position: relative; /* Adiciona position relative para permitir uso de z-index */
+    z-index: 2; /* Define o z-index maior para o conteúdo */
+}
+
+.UserText p {
+    font-size: 15px;
+    color: #A0AEC0;
+}
+
+.UserText .user-text {
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 0px;
+    color: white;
+}
+
+.UserText a {
+    color: white;
+    font-size: 13px;
+    display: flex;
+    align-items: center; /* Alinha o texto e a seta verticalmente */
+    text-decoration: none; /* Remove o sublinhado do link */
+    margin-top: 40%;
+}
+
+.UserText .imgImpressora {
+    margin-left: 5px; /* Adiciona espaço entre o texto e a seta */
+    width: 20px; /* Ajusta o tamanho da seta */
+    height: 13px; /* Ajusta o tamanho da seta */
+    fill: none; /* Remove qualquer preenchimento interno */
+    stroke: white; /* Define a cor da seta */
+    background: none; /* Remove o fundo azul */
+    padding: 0; /* Remove qualquer padding que possa estar adicionando espaço ao redor */
+    margin-top: -5px; /* Remove a margem superior */
+}

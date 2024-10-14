@@ -1,0 +1,88 @@
+.TxTNvlEstabilidade {
+    background: linear-gradient(126.97deg, rgba(6, 11, 40, 0.74) 28.26%, rgba(10, 14, 35, 0.71) 91.2%);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    line-height: 0px;
+    width: 81.5vh;
+}
+
+.TituloNvlEstabilidade {
+    line-height: 0px;
+    color: white;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.BodyNvlEstabilidade {
+    text-align: left;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+}
+
+
+.TxTNvlEstabilidadeBar {
+    background: linear-gradient(126.97deg, rgba(6, 11, 40, 0.74) 28.26%, rgba(10, 14, 35, 0.71) 91.2%);
+    border-radius: 8px;
+    padding: 20px 20px 10px 20px;
+    display: flex;
+    flex-direction: column;
+
+    line-height: 0px;
+    width: 60.5vh;
+    right: 0;
+    margin-left: 10px;
+}
+
+.BodyGraficoBar {
+    background: linear-gradient(126.97deg, #060C29 28.26%, rgba(4, 12, 48, 0.5) 91.2%);
+    width: 100%;
+    border-radius: 20px;
+}
+
+.GraficoBar {
+    padding: 20px;
+    width: 84%;
+    margin: 0 auto; 
+  }
+
+.GraficoBarDesc {
+    margin-bottom: 30px;
+}
+
+.Faixas {
+    display: flex;
+    
+}
+
+.FaixaSepara{
+    margin-right: 40px;
+}
+
+.FaixaTextCima {
+    display: flex;
+    margin-top: 15px;
+}
+
+.FaixaTextCima svg {
+    padding: 9px 6px;
+    background-color: #0075FF;
+
+    border-radius: 5px;
+}
+
+.FaixaTitulo {
+    margin-left: 10px;
+}
+
+.FaixaValor {
+    color: white;
+    font-size: 15px;
+    width: 110px;
+    font-weight: 600;
+    line-height: 15px;
+}

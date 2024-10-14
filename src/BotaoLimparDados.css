@@ -4,14 +4,12 @@
   }
   
   .botao-limpar {
-    padding: 10px 20px;
-     font-size: 16px;
-     background-color: #007bff;
      color: #fff;
      border: none;
-     border-radius: 5px;
      cursor: pointer;
-     margin-top: 30px;
+     margin-top: 10px;
+     outline-style: none;
+     background-color: #f5f5fd;
   }
   
   .modal {

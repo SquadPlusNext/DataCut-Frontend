@@ -1,0 +1,66 @@
+.header {
+    grid-column: span 3;
+    display: flex;
+    justify-content: space-between;
+    margin: -20px 0px 10px 0px;
+  }
+    
+  .header .status {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(126.97deg, rgba(6, 11, 38, 0.74) 28.26%, rgba(26, 31, 55, 0.5) 91.2%);
+    width: 21%;
+    height: 60px;
+    padding: 0px 17px 12px 25px;
+    border-radius: 20px;
+    position: relative; /* Adiciona posição relativa */
+  }
+  
+  .header .status p {
+    font-size: 12px;
+    color: #A0AEC0;
+    width: 100%;
+  }
+  
+  .header .status span {
+    width: 100%;
+    font-size: 18px;
+    text-align: left;
+    line-height: 8px;
+    font-weight: 700;
+  }
+  
+.imgStatusLiga {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    background-color:#0DE735;
+
+    padding: 7px 7px 0px 7px;
+    border-radius: 10px;
+  }
+
+.imgStatusLiga img {
+    width: 25px; /* Defina a largura desejada */
+    height: auto; /* Mantém a proporção da altura */
+}
+  
+
+.imgStatus {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    background-color:#0075FF;
+
+    padding: 7px 7px 0px 7px;
+    border-radius: 10px;
+  }
+
+.imgStatus img {
+    width: 25px; /* Defina a largura desejada */
+    height: auto; /* Mantém a proporção da altura */
+}

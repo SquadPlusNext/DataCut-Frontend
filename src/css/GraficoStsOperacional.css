@@ -1,0 +1,83 @@
+.Body {
+    margin-left: 50px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(126.97deg, rgba(6, 11, 38, 0.89) 28.26%, rgba(26, 31, 55, 0.5) 91.2%);
+    border-radius: 20px;
+    padding: 20px;
+    width: 70%;
+    line-height: 10px;
+}
+
+.BodyLegendas {
+    text-align: left;
+    color: white;
+    padding: 0;
+}
+
+p {
+    color: #A0AEC0;
+    font-size: 14px;
+}
+
+.TextLegendas {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+
+.TextLegendasNum {
+    font-size: 35px;
+    font-weight: 700;
+    color: white;
+    margin-top: 0px;
+}
+
+.TextLegendasDesc {
+    color: #A0AEC0;
+    line-height: 10px;
+    margin-top: -20px;
+}
+
+.BodyGrafico {
+    width: 60%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.BodyPorcentagem {
+    background: linear-gradient(126.97deg, rgba(6, 11, 40, 0.74) 28.26%, rgba(10, 14, 35, 0.71) 91.2%);
+    width: 90%;
+    text-align: center;
+    margin-top: -90px;
+    height: 90px;
+    line-height: 10px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 10px 20px; /* Ajusta o espaçamento nas laterais */
+}
+
+.Porcentagem {
+    display: flex;
+    width: 100%;
+    justify-content: space-between; /* Distribui os elementos */
+}
+
+.PorcentagemZero,
+.PorcentagemCem {
+    font-weight: bold;
+    font-size: 12px;
+}

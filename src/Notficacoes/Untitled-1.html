@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #003366;
+            margin: 20px 0;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .card h2 {
+            color: #003366;
+            margin-bottom: 15px;
+        }
+
+        .card-stat {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .gauge {
+            height: 120px;
+            width: 120px;
+            border-radius: 50%;
+            background: conic-gradient(#ffcc00, #003366);
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .gauge:before {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .card-timeseries, .card-table {
+            height: 150px;
+            background-color: #e6f2ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: #003366;
+        }
+
+        .table-container {
+            grid-column: span 3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        table th {
+            background-color: #003366;
+            color: #fff;
+        }
+
+        table td {
+            background-color: #e6f2ff;
+            color: #003366;
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Modern Dashboard</h1>
+
+    <div class="dashboard">
+        <!-- Consumo KW/h mensal -->
+        <div class="card">
+            <h2>Consumo KW/h Mensal</h2>
+            <div class="card-stat">320</div>
+        </div>
+
+        <!-- Sensor de gás -->
+        <div class="card">
+            <h2>Sensor de Gás</h2>
+            <div class="card-stat">Normal</div>
+        </div>
+
+        <!-- Sensor TOF -->
+        <div class="card">
+            <h2>Sensor TOF</h2>
+            <div class="gauge"></div>
+        </div>
+
+        <!-- Temperatura do compressor -->
+        <div class="card">
+            <h2>Temperatura do Compressor</h2>
+            <div class="gauge"></div>
+        </div>
+
+        <!-- Tempo de corte com setup errado mensal -->
+        <div class="card">
+            <h2>Tempo de Corte com Setup Errado Mensal</h2>
+            <div class="gauge"></div>
+        </div>
+
+        <!-- Tempo de uso restante do laser -->
+        <div class="card">
+            <h2>Tempo de Uso Restante do Laser</h2>
+            <div class="gauge"></div>
+        </div>
+
+        <!-- Temperatura laser / temperatura água chiller -->
+        <div class="card card-timeseries">
+            <h2>Temperatura Laser / Temperatura Água Chiller</h2>
+            <p>Timeseries Chart</p>
+        </div>
+
+        <!-- Consumo KW/h instantâneo -->
+        <div class="card card-timeseries">
+            <h2>Consumo KW/h Instantâneo</h2>
+            <p>Timeseries Chart</p>
+        </div>
+
+        <!-- Consumo KW/h mensal em standby -->
+        <div class="card card-timeseries">
+            <h2>Consumo KW/h Mensal em Standby</h2>
+            <p>Timeseries Chart</p>
+        </div>
+
+        <!-- Área para notificações da IA -->
+        <div class="table-container">
+            <h2>Área para Notificações da IA</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hora</th>
+                        <th>Notificação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>08:45</td>
+                        <td>Alerta: Temperatura do Compressor Alta</td>
+                    </tr>
+                    <tr>
+                        <td>10:15</td>
+                        <td>Sensor de Gás Detectou Variação</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Área para informações gerais -->
+        <div class="table-container">
+            <h2>Área para Informações Gerais</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Última Manutenção</td>
+                        <td>12/07/2024</td>
+                    </tr>
+                    <tr>
+                        <td>Próxima Manutenção</td>
+                        <td>12/08/2024</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './BotaoLimparDados.css';
+import minhaImagem from './lixeira (1).png';
 
 const BotaoLimparDados = () => {
   const [exibirModal, setExibirModal] = useState(false);
@@ -11,7 +12,7 @@ const BotaoLimparDados = () => {
 
   const handleConfirmarLimparDados = async () => {
     try {
-      const response = await fetch('http://localhost:3000/limpar-dados', {
+      const response = await fetch('http://50.16.40.172:3000/limpar-dados', {
         method: 'DELETE'
       });
       if (!response.ok) {
@@ -35,7 +36,9 @@ const BotaoLimparDados = () => {
 
   return (
     <>
-      <button className="botao-limpar" onClick={handleLimparDados}>Limpar Dados</button>
+      <button className="botao-limpar" onClick={handleLimparDados}>
+        <img src={minhaImagem} width={25}></img>
+      </button>
       {exibirModal && (
         <div className="modal">
           <div className="modal-conteudo">
