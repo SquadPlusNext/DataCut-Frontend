@@ -24,7 +24,6 @@
     grid-gap: 20px;
 }
 
-
 .TxTNvlEstabilidadeBar {
     background: linear-gradient(126.97deg, rgba(6, 11, 40, 0.74) 28.26%, rgba(10, 14, 35, 0.71) 91.2%);
     border-radius: 8px;
@@ -61,6 +60,7 @@
 
 .FaixaSepara{
     margin-right: 40px;
+    margin-top: -30px;
 }
 
 .FaixaTextCima {
@@ -82,7 +82,83 @@
 .FaixaValor {
     color: white;
     font-size: 15px;
-    width: 110px;
+    width: 120px;
     font-weight: 600;
     line-height: 15px;
+}
+
+
+#GraficoLineGas {
+    width: 100% !important;  /* Forçando o tamanho */
+    height: 300px !important;
+  }
+
+
+.BodyNvlMonitoramentoGases {
+    text-align: left;
+    width: 600px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+}
+
+.TxTNvlMonitoramentoGases {
+    background: linear-gradient(126.97deg, rgba(6, 11, 40, 0.74) 28.26%, rgba(10, 14, 35, 0.71) 91.2%);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    line-height: 0px;
+    /* width: 81.5vh; */
+}
+
+
+
+.TituloNvlTof{
+    line-height: 0px;
+    color: white;
+    font-size: 20px;
+    margin-bottom: 10px;
+    line-height: 25px;
+}
+
+
+.TxTNvlCorrenteGeral {
+    /* width: 100px; */
+    
+    background: linear-gradient(126.97deg, rgba(6, 11, 40, 0.74) 28.26%, rgba(10, 14, 35, 0.71) 91.2%);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    line-height: 0px;
+
+}
+
+
+.BodySensorTof {
+    background: linear-gradient(126.97deg, rgba(6, 11, 40, 0.74) 28.26%, rgba(10, 14, 35, 0.71) 91.2%);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    line-height: 0px;
+
+}
+
+
+.ValorTof {
+    font-size: 25px;
+    font-weight: 700;
+
+    color: white;
+    text-align: center;
+}
+
+
+.BodyGraficoBar {
+    height: 300px;
 }

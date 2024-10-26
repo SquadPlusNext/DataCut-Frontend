@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Chart from 'chart.js/auto';
 
-const SensorDataChart = () => {
+const SensorDataChart = ({ timeRange }) => {
   const [sensorData, setSensorData] = useState([]); // Estado para armazenar os dados do sensor
   const [tempChartInstance, setTempChartInstance] = useState(null); // Instância do gráfico de temperatura
   const [isLoading, setIsLoading] = useState(true); // Estado para controlar o carregamento inicial
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://50.16.40.172:3000/influxdb?range=1h');
+  const fetchData = async () => {
+    try {
+        const response = await fetch(`http://squadplus.zapto.org:3000/influxdb?range=${timeRange}`);
         if (!response.ok) {
           throw new Error('Erro ao buscar dados: ' + response.statusText);
         }
@@ -21,14 +20,15 @@ const SensorDataChart = () => {
       }
     };
 
-    fetchData();
-  }, []);
+    useEffect(() => {
+      fetchData(); // Buscar dados sempre que o componente for montado ou timeRange mudar
+    }, [timeRange]);
 
   // Atualização periódica dos dados a cada 10 segundos
   useEffect(() => {
     const updateChartData = async () => {
       try {
-        const response = await fetch('http://50.16.40.172:3000/influxdb?&range=1h');
+        const response = await fetch(`http://squadplus.zapto.org:3000/influxdb?&range=${timeRange}`);
         if (!response.ok) {
           throw new Error('Erro ao buscar dados: ' + response.statusText);
         }
@@ -40,10 +40,10 @@ const SensorDataChart = () => {
     };
 
     const interval = setInterval(updateChartData, 6000); // Intervalo de 60s
-
     return () => clearInterval(interval); // Limpar intervalo ao desmontar o componente
-  }, []);
+  }, [timeRange]);
 
+  
   // Renderização dos gráficos
   useEffect(() => {
     if (!isLoading) { // Renderizar gráficos somente após o carregamento inicial
@@ -53,16 +53,16 @@ const SensorDataChart = () => {
 
       const tempCtx = document.getElementById('temp-chart');
       
-      // Filtrando os dados para temp_a e curr_a
-      const tempAData = sensorData.filter(entry => entry._measurement === 'corrente_laser').map(entry => entry._value); // Supondo que '_value' contém os valores
-      const currAData = sensorData.filter(entry => entry._measurement === 'corrente_geral').map(entry => entry._value); // Supondo que '_value' contém os valores
+      // Filtrando os dados para temperatura_compressor e curr_a
+      const tempAData = sensorData.filter(entry => entry._measurement === 'potencia_laser').map(entry => entry._value); // Supondo que '_value' contém os valores
+      // const currAData = sensorData.filter(entry => entry._measurement === 'corrente_geral').map(entry => entry._value); // Supondo que '_value' contém os valores
       
       // Criar novo gráfico de temperatura e corrente
       const newTempChartInstance = new Chart(tempCtx, {
         type: 'line',
         data: {
           // Assumindo que ambos os datasets têm o mesmo conjunto de timestamps
-          labels: sensorData.filter(entry => entry._measurement === 'corrente_geral').map(entry => {
+          labels: sensorData.filter(entry => entry._measurement === 'potencia_laser').map(entry => {
             const timestamp = new Date(entry._time);
             timestamp.setHours(timestamp.getHours() - 3); // Ajuste de fuso horário
             return timestamp.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
@@ -70,25 +70,25 @@ const SensorDataChart = () => {
           datasets: [
             {
               label: 'Consumo Tubo',
-              data: tempAData, // Valores de temp_a
+              data: tempAData, // Valores de temperatura_compressor
               borderColor: '#0172fa',
               backgroundColor: 'rgba(4,108,244, 0.5)',
-              fill: false,
-            },
-            {
-              label: 'Consumo Geral',
-              data: currAData, // Valores de curr_a
-              borderColor: '#f0ba2d',
-              backgroundColor: 'rgba(1342, 236, 93, 0.2)',
               fill: true,
-            }
+            },
+            // {
+            //   label: 'Consumo Geral',
+            //   data: currAData, // Valores de curr_a
+            //   borderColor: '#f0ba2d',
+            //   backgroundColor: 'rgba(1342, 236, 93, 0.2)',
+            //   fill: true,
+            // }
           ]
         },
         options: {
           responsive: true,
           plugins: {
             legend: {
-              display: true, // Exibir legenda para distinguir temp_a e curr_a
+              display: true, // Exibir legenda para distinguir temperatura_compressor e curr_a
             },
           },
           scales: {
@@ -110,8 +110,7 @@ const SensorDataChart = () => {
     <div>
       <div className='BodyNvlEstabilidade'>
         <div className='TxTNvlEstabilidade'>
-          <p className='TituloNvlEstabilidade'>Consumo de Energia</p>
-          <p>Monitoramento do consumo de energia das máquinas</p>
+          <p className='TituloNvlEstabilidade'>Potencia Laser</p>
           {isLoading ? (
             <p>Carregando...</p>
           ) : (

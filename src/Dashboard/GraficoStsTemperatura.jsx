@@ -12,7 +12,7 @@ const GraficoStsTemperatura = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://50.16.40.172:3000/influxdb?range=1h');
+        const response = await fetch('http://squadplus.zapto.org:3000/influxdb?range=1h');
         if (!response.ok) {
           throw new Error('Erro ao buscar dados: ' + response.statusText);
         }
@@ -31,7 +31,7 @@ const GraficoStsTemperatura = () => {
   useEffect(() => {
     const updateChartData = async () => {
       try {
-        const response = await fetch('http://50.16.40.172:3000/influxdb?range=1h');
+        const response = await fetch('http://squadplus.zapto.org:3000/influxdb?range=1h');
         if (!response.ok) {
           throw new Error('Erro ao buscar dados: ' + response.statusText);
         }
@@ -118,7 +118,7 @@ useEffect(() => {
   return (
 <div className="container">
         <div className="BodyLegendas">
-            <p className='TextLegendas'>Temperatura do Chiller</p>
+            <p className='TextLegendas'>Temperatura do Laser</p>
         </div>
         <div className="content">
             <div className="info-row">

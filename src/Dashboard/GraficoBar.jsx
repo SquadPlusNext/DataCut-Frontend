@@ -5,16 +5,15 @@ import Chart from 'chart.js/auto';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PointElement, LineElement, ArcElement);
 
-const GraficoBar = ({ title, descricao }) => {
+const GraficoBar = ({ title, descricao, timeRange }) => {
   const [sensorData, setSensorData] = useState([]); // Estado para armazenar os dados do sensor
   const [tempChartInstance, setTempChartInstance] = useState(null); // Instância do gráfico de temperatura
   const [isLoading, setIsLoading] = useState(true); // Estado para controlar o carregamento inicial
   const [totalGasA, setTotalGasA] = useState(0); // Estado para armazenar o total de Gas A
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://50.16.40.172:3000/influxdb?range=1h');
+  const fetchData = async () => {
+    try {
+        const response = await fetch(`http://squadplus.zapto.org:3000/influxdb?range=${timeRange}`);
         if (!response.ok) {
           throw new Error('Erro ao buscar dados: ' + response.statusText);
         }
@@ -26,14 +25,16 @@ const GraficoBar = ({ title, descricao }) => {
       }
     };
 
-    fetchData();
-  }, []);
+    useEffect(() => {
+      fetchData(); // Buscar dados sempre que o componente for montado ou timeRange mudar
+    }, [timeRange]);
+
 
   // Atualização periódica dos dados a cada 10 segundos
   useEffect(() => {
     const updateChartData = async () => {
       try {
-        const response = await fetch('http://50.16.40.172:3000/influxdb?range=1h');
+        const response = await fetch(`http://squadplus.zapto.org:3000/influxdb?range=${timeRange}`);
         if (!response.ok) {
           throw new Error('Erro ao buscar dados: ' + response.statusText);
         }
@@ -44,13 +45,10 @@ const GraficoBar = ({ title, descricao }) => {
       }
     };
 
-    const interval = setInterval(updateChartData, 6000); // Intervalo de 60s 
-
+    const interval = setInterval(updateChartData, 6000); // Intervalo de 60s
     return () => clearInterval(interval); // Limpar intervalo ao desmontar o componente
-  }, []);
+  }, [timeRange]);
 
-  // Recalcula o total de Gas A sempre que os dados do sensor são atualizados
-// Recalcula o total de Gas A sempre que os dados do sensor são atualizados
 useEffect(() => {
   if (sensorData.length > 0) {
     const Tof = sensorData
@@ -76,7 +74,7 @@ useEffect(() => {
     type: 'bar',
     data: {
       // Assumindo que ambos os datasets têm o mesmo conjunto de timestamps
-      labels: sensorData.filter(entry => entry._measurement === 'tof').map(entry => {
+      labels: sensorData.filter(entry => entry._measurement === 'potencia_geral').map(entry => {
         const timestamp = new Date(entry._time);
         timestamp.setHours(timestamp.getHours() - 3); // Ajuste de fuso horário
         return timestamp.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
@@ -139,7 +137,7 @@ useEffect(() => {
                 </svg>
                 <p className='FaixaTitulo'>Faixa Ideal</p>
               </div>
-              <p className='FaixaValor'>6mm</p>
+              <p className='FaixaValor'>Entre 900 e 1.225 </p>
             </div>
 
             {/* <div className='FaixaSepara'>

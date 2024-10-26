@@ -20,7 +20,7 @@ const SensorDataChart = () => {
     };
 
     try {
-      const response = await fetch('http://50.16.40.172:3000/inserir-dados-sensor', {
+      const response = await fetch('http://squadplus.zapto.org:3000/inserir-dados-sensor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const SensorDataChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://50.16.40.172:3000/dados-sensores');
+        const response = await fetch('http://squadplus.zapto.org:3000/dados-sensores');
         if (!response.ok) {
           throw new Error('Erro ao buscar dados: ' + response.statusText);
         }
@@ -63,7 +63,7 @@ const SensorDataChart = () => {
       try {
         await sendSensorData(); // Enviar os dados do sensor a cada 10 segundos
 
-        const response = await fetch('http://50.16.40.172:3000/dados-sensores');
+        const response = await fetch('http://squadplus.zapto.org:3000/dados-sensores');
         if (!response.ok) {
           throw new Error('Erro ao buscar dados: ' + response.statusText);
         }

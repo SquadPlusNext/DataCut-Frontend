@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import Chart from 'chart.js/auto';
 
-const GraficoLineGas = () => {
+const GraficoLineGas = ({ timeRange }) => { // Recebendo timeRange como prop
   const [sensorData, setSensorData] = useState([]); // Estado para armazenar os dados do sensor
-  const [tempChartInstance, setTempChartInstance] = useState(null); // Instância do gráfico de temperatura
+  const [tempChartInstance, setTempChartInstance] = useState(null); // Instância do gráfico de gases
   const [isLoading, setIsLoading] = useState(true); // Estado para controlar o carregamento inicial
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://50.16.40.172:3000/influxdb?range=1h');
-        if (!response.ok) {
-          throw new Error('Erro ao buscar dados: ' + response.statusText);
-        }
-        const data = await response.json();
-        setSensorData(data);
-        setIsLoading(false); // Marcamos que a busca de dados terminou
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error);
+  // Função para buscar os dados
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://squadplus.zapto.org:3000/influxdb?range=${timeRange}`); // Usando timeRange na URL
+      if (!response.ok) {
+        throw new Error('Erro ao buscar dados: ' + response.statusText);
       }
-    };
+      const data = await response.json();
+      setSensorData(data);
+      setIsLoading(false); // Marcamos que a busca de dados terminou
+    } catch (error) {
+      console.error('Erro ao buscar dados:', error);
+    }
+  };
 
-    fetchData();
-  }, []);
+  useEffect(() => {
+    fetchData(); // Buscar dados sempre que o componente for montado ou timeRange mudar
+  }, [timeRange]);
 
   // Atualização periódica dos dados a cada 10 segundos
   useEffect(() => {
     const updateChartData = async () => {
       try {
-        const response = await fetch('http://50.16.40.172:3000/influxdb?&range=1h');
+        const response = await fetch(`http://squadplus.zapto.org:3000/influxdb?range=${timeRange}`); // Usando timeRange na URL
         if (!response.ok) {
           throw new Error('Erro ao buscar dados: ' + response.statusText);
         }
@@ -40,9 +41,8 @@ const GraficoLineGas = () => {
     };
 
     const interval = setInterval(updateChartData, 6000); // Intervalo de 60s
-
     return () => clearInterval(interval); // Limpar intervalo ao desmontar o componente
-  }, []);
+  }, [timeRange]);
 
   // Renderização dos gráficos
   useEffect(() => {
@@ -51,17 +51,16 @@ const GraficoLineGas = () => {
         tempChartInstance.destroy(); // Destruir o gráfico existente antes de criar um novo
       }
 
-      const tempCtx = document.getElementById('GraficoLineGas');
+      const tempCtx = document.getElementById('GraficoLineGas').getContext('2d'); // Obtendo o contexto do canvas
+
+      // Filtrando os dados para gas_a e gas_b
+      const GasAData = sensorData.filter(entry => entry._measurement === 'gas_a').map(entry => entry._value);
+      const GasBData = sensorData.filter(entry => entry._measurement === 'gas_b').map(entry => entry._value);
       
-      // Filtrando os dados para temp_a e curr_a
-      const GasAData = sensorData.filter(entry => entry._measurement === 'gas_a').map(entry => entry._value); // Supondo que '_value' contém os valores
-      const GasBData = sensorData.filter(entry => entry._measurement === 'gas_b').map(entry => entry._value); // Supondo que '_value' contém os valores
-      
-      // Criar novo gráfico de temperatura e corrente
+      // Criar novo gráfico de gases
       const newTempChartInstance = new Chart(tempCtx, {
         type: 'line',
         data: {
-          // Assumindo que ambos os datasets têm o mesmo conjunto de timestamps
           labels: sensorData.filter(entry => entry._measurement === 'gas_a').map(entry => {
             const timestamp = new Date(entry._time);
             timestamp.setHours(timestamp.getHours() - 3); // Ajuste de fuso horário
@@ -70,46 +69,47 @@ const GraficoLineGas = () => {
           datasets: [
             {
               label: 'Gás A',
-              data: GasAData, // Valores de temp_a
+              data: GasAData,
               borderColor: '#0172fa',
               backgroundColor: 'rgba(4,108,244, 0.5)',
               fill: false,
             },
             {
               label: 'Gás B',
-              data: GasBData, // Valores de curr_a
+              data: GasBData,
               borderColor: '#f0ba2d',
-              backgroundColor: 'rgba(1342, 236, 93, 0.2)',
+              backgroundColor: 'rgba(134, 236, 93, 0.2)',
               fill: true,
             }
           ]
         },
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: {
             legend: {
-              display: true, // Exibir legenda para distinguir temp_a e curr_a
+              display: true,
             },
           },
           scales: {
             x: {
-              display: false, // Mostrar eixo X com labels de tempo
+              display: false,
             },
             y: {
               beginAtZero: true,
             },
           },
-        },
+        }
       });
 
-      setTempChartInstance(newTempChartInstance); // Armazenar nova instância do gráfico de temperatura
+      setTempChartInstance(newTempChartInstance); // Armazenar nova instância do gráfico de gases
     }
   }, [sensorData, isLoading]);
 
   return (
     <div>
-      <div className='BodyNvlEstabilidade'>
-        <div className='TxTNvlEstabilidade'>
+      <div className='BodyNvlMonitoramentoGases'>
+        <div className='TxTNvlMonitoramentoGases'>
           <p className='TituloNvlEstabilidade'>Monitoramento de gases tóxicos</p>
           <p>Monitoramento em tempo real dos níveis de gases tóxicos</p>
           {isLoading ? (

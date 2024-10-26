@@ -12,7 +12,7 @@ const GraficoStsOperacional = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://50.16.40.172:3000/influxdb?range=1h');
+        const response = await fetch('http://squadplus.zapto.org:3000/influxdb?range=1d');
         if (!response.ok) {
           throw new Error('Erro ao buscar dados: ' + response.statusText);
         }
@@ -31,7 +31,7 @@ const GraficoStsOperacional = () => {
   useEffect(() => {
     const updateChartData = async () => {
       try {
-        const response = await fetch('http://50.16.40.172:3000/influxdb?range=1h');
+        const response = await fetch('http://squadplus.zapto.org:3000/influxdb?measurement=temperatura_compressor&range=1d');
         if (!response.ok) {
           throw new Error('Erro ao buscar dados: ' + response.statusText);
         }

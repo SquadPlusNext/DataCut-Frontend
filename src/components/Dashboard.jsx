@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ChartBox from './ChartBox.jsx';
 import Menu from './Menu.jsx';
 import Status from './Status.jsx';
@@ -6,17 +6,24 @@ import '../css/Dashboard.css';
 
 import GraficoStsOperacional from '../Dashboard/GraficoStsOperacional.jsx'
 import GraficoStsTemperatura from '../Dashboard/GraficoStsTemperatura.jsx';
-import GraficoLine from '../Dashboard/GraficoLine.jsx';
 import GraficoLineGas from '../Dashboard/GraficoLineGas.jsx';
 import GraficoBar from '../Dashboard/GraficoBar.jsx';
 import SensorDataChart from '../Dashboard/GraficoLine.jsx';
 
+import GraficoCorrenteGeral from '../Dashboard/GraficoSensorTof.jsx';
+import GraficoSensorTof from '../Dashboard/GraficoCorrenteGeral.jsx';
+import GraficoSensorGasA from '../Dashboard/GraficoSensorGasA.jsx';
+import GraficoLineTempCompressor from '../Dashboard/GraficoLineTempCompressor.jsx';
+import GraficoSensorGasB from '../Dashboard/GraficoSensorGasB.jsx';
+
 const Dashboard = () => {
+  const [timeRange, setTimeRange] = useState('10m'); // Estado para o intervalo de tempo
+
   return (
     <div className='BodyDashboard'>
       <Menu />
       <div className='dashboard'>
-        <Status />
+        <Status timeRange={timeRange} setTimeRange={setTimeRange} /> {/* Passando o estado */}
 
         <div className='BodyUser'>
           <div className='UserText'>
@@ -33,12 +40,24 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* <GraficoStsOperacional /> */}
         <GraficoStsOperacional />
+
         <GraficoStsTemperatura />
 
         </div>
+
+
+
         <div className='dashboard'>
-          <SensorDataChart 
+          <GraficoSensorTof />
+          <GraficoLineGas timeRange={timeRange} />
+          <GraficoCorrenteGeral/>
+        </div>
+
+
+        <div className='dashboard'>
+          <SensorDataChart timeRange={timeRange}
           title="Corrente Elétrica" 
           measurement="curr_a" 
           range="30d" 
@@ -46,12 +65,16 @@ const Dashboard = () => {
         />
       
 
-        <GraficoBar title="Altura de Corte" descricao={"Monitoramento da altura do corte"}/>
+        <GraficoBar title="Potencia Geral da Máquina" descricao={""} timeRange={timeRange}/>
         </div>
 
+
         <div className='dashboard'>
-        <GraficoLineGas />
+          <GraficoSensorGasA />
+          <GraficoLineTempCompressor timeRange={timeRange}/>
+          <GraficoSensorGasB/>
         </div>
+
         
           {/* <GraficoLine title="Nível de Estabilidade 2" descricao={"Monitoramento das Vibrações assegurando que a máquina opere de forma estável e suave"}/>
 

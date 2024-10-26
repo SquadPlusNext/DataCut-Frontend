@@ -64,3 +64,48 @@
     width: 25px; /* Defina a largura desejada */
     height: auto; /* Mantém a proporção da altura */
 }
+
+
+select {
+  /* Reset */
+  appearance: none;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  /* Personalize */
+  width: 19rem;
+  padding: 0.2rem 4rem 0.2rem 1rem;
+  background: var(--arrow-icon) no-repeat right 0.8em center / 1.4em,
+    linear-gradient(to left, var(--arrow-bg) 3em, var(--select-bg) 3em);
+  color: white;
+  border-radius: 0.25em;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  margin-top: -10px;
+
+
+  /* Remove IE arrow */
+  &::-ms-expand {
+    display: none;
+  }
+  /* Remove focus outline */
+  &:focus {
+    outline: none;
+  }
+  /* <option> colors */
+  option {
+    color: inherit;
+    background-color: var(--option-bg);
+  }
+}
+
+option {
+  background-color: #0e093d;
+}
+
+:root {
+  --arrow-bg: rgba(255, 255, 255, 0.3);
+  --arrow-icon: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg);
+  --option-bg: white;
+  --select-bg: rgba(255, 255, 255, 0.2);
+}

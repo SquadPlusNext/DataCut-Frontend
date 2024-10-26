@@ -1,0 +1,12 @@
+.TxTNvlCorrenteGeral {
+    /* width: 100px; */
+    
+    background: linear-gradient(126.97deg, rgba(6, 11, 40, 0.74) 28.26%, rgba(10, 14, 35, 0.71) 91.2%);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    line-height: 0px;
+
+}

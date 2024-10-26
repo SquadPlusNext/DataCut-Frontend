@@ -17,7 +17,7 @@ const apiDocumentation = {
     },
     servers: [
       {
-        url: 'http://localhost:4500/',
+        url: 'http://squadplus.zapto.org:4500/',
         description: 'Local Server',
       },
       {

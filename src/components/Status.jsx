@@ -6,7 +6,7 @@ import imgOperacional from '../Icons/Operacional.png'
 import imgData from '../Icons/Data.png'
 import imgEnergia from '../Icons/Energia.png'
 
-const Status = () => {      
+const Status = ({ timeRange, setTimeRange }) => {      
   return (
   <div className="header">
     <div className='status'>
@@ -17,12 +17,18 @@ const Status = () => {
       </div>
     </div>  
     <div className="status">
-        <p>Status Operacional</p>
-        <span>Em Operação</span>
-        <div className='imgStatus'>
-          <img src={imgOperacional}></img>
-        </div>
-    </div>
+        <p>Intervalo de Tempo</p>
+        <select onChange={(e) => setTimeRange(e.target.value)} value={timeRange}>
+          <option value="15m">15 Minutos</option>
+          <option value="1h">1 Hora</option>
+          <option value="3h">3 Horas</option>
+          <option value="12h">12 Horas</option>
+          <option value="24h">24 Horas</option>
+          <option value="7d">7 Dias</option>
+          <option value="14d">14 Dias</option>
+          <option value="30d">30 Dias</option>
+        </select>
+      </div>
     <div className="status">
       <p>Consumo de Energia</p>
       <span>2.5 kW</span>
@@ -32,7 +38,7 @@ const Status = () => {
     </div>
     <div className="status">
       <p>Última Manutancao</p>
-      <span>00/00/00</span>
+      <span>10/07/2024</span>
       <div className='imgStatus'>
           <img src={imgData}></img>
       </div>
